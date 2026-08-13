@@ -1,0 +1,137 @@
+[
+  {
+    "_version": "3.0",
+    "identification": {
+      "id": "vcplannerdocumentation_mt-catalog",
+      "title": "catalog.vcplannerdocumentation_mt.title",
+      "entityType": "catalog"
+    },
+    "payload": {
+      "viz": [
+        {
+          "appId": "cpapp.maintenanceapp",
+          "vizId": "Maintenance-Display"
+        },
+        {
+          "appId": "cpapp.documentationapp",
+          "vizId": "VCPDocument-Display"
+        }
+      ]
+    },
+    "texts": [
+      {
+        "locale": "",
+        "textDictionary": {
+          "catalog.vcplannerdocumentation_mt.title": "VCP Sass Location Management"
+        }
+      }
+    ]
+  },
+  {
+    "_version": "3.0",
+    "identification": {
+      "id": "vcplannerdocumentation_mt-group",
+      "title": "Documentation",
+      "entityType": "group"
+    },
+    "payload": {
+      "viz": [
+        {
+          "appId": "cpapp.maintenanceapp",
+          "vizId": "Maintenance-Display"
+        },
+        {
+          "appId": "cpapp.documentationapp",
+          "vizId": "VCPDocument-Display"
+        }
+      ]
+    },
+    "texts": [
+      {
+        "locale": "",
+        "textDictionary": {
+          "group.vcplannerdocumentation_mt.title": "Documentation"
+        }
+      }
+    ]
+  },
+  {
+    "_version": "3.0",
+    "identification": {
+      "id": "vcplannerdocumentation_mtRole",
+      "entityType": "role",
+      "title": "VCP Documentation Role",
+      "description": "VCP Documentation Role"
+    },
+    "payload": {
+      "apps": [
+        {
+          "id": "cpapp.maintenanceapp"
+        },
+        {
+          "id": "cpapp.documentationapp"
+        }
+      ],
+      "catalogs": [
+        {
+          "id": "vcplannerdocumentation_mt-catalog"
+        }
+      ],
+      "groups": [
+        {
+          "id": "vcplannerdocumentation_mt-group"
+        }
+      ],
+      "spaces": [
+        {
+          "id": "vcplannerdocumentation_mt-space"
+        }
+      ]
+    }
+  },
+  {
+    "_version": "3.2.0",
+    "identification": {
+      "id": "vcplannerdocumentation_mt-page",
+      "title": "Documentation",
+      "entityType": "page"
+    },
+    "payload": {
+      "layout": {
+        "sectionLayout": "tabbed"
+      },
+      "sections": [
+        {
+          "id": "vcplannerdocumentation_mt-section-1",
+          "title": "Documentation",
+          "viz": [
+            {
+              "appId": "cpapp.maintenanceapp",
+              "vizId": "Maintenance-Display"
+            },
+            {
+              "appId": "cpapp.documentationapp",
+              "vizId": "VCPDocument-Display"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "_version": "3.2.0",
+    "identification": {
+      "id": "vcplannerdocumentation_mt-space",
+      "title": "Documentation",
+      "entityType": "space"
+    },
+    "payload": {
+      "contentNodes": [
+        {
+          "id": "vcplannerdocumentation_mt-page",
+          "type": "page"
+        }
+      ]
+    }
+  }
+]

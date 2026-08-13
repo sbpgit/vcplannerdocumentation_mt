@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:semantic="sap.m.semantic"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="helloDialog1" title="Rename Node" afterClose="onAfterClose" class="fragmentTitle">
+		<f:SimpleForm id="createEmpDetails1" visible="true" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" emptySpanL="6"
+			columnsL="1">
+			<f:content>
+				<Label text="Page Id" design="Bold"  visible="false"/>
+				<Input required="true" id="Pageidedit" visible="false" enabled="false"  />
+			
+		
+
+                <Label text="Node Description"  required="true" design="Bold"/>
+			<Input placeholder = "Enter Node description" id ="Pnodeedit"/>
+
+            <Label text="Parent Node Id"  required="true" design="Bold" visible="false"/>
+			<Input placeholder = "Enter Node description" id ="Pnodeedid" enabled="false" visible="false"/>
+
+                <Label text="Hierarchy Level"  required="true" design="Bold" visible="false"/>
+				<Input placeholder="Enter Heirarchy Level" id="idHLedit" enabled="false" visible="false"/>
+
+                <!-- <Label text="Drill State"  required="true" design="Bold"/>
+			<Input placeholder = "Enter Drill State" id="drilledit" enabled="false"></Input> -->
+						
+				<!-- <Label text="POSITION"  required="true" design="Bold"/>
+				<Input placeholder="Enter Position" id="Posedit" enabled="false"/> -->
+				
+				<!-- <Label text="Entry Type" class="phid" required="true" design="Bold"></Label>
+				<Input id = "Etypeedit" placeholder="Enter Entry Type" enabled="false"></Input> -->
+
+                <Label text="Content" class="phid" required="true" design="Bold" visible="false"></Label>
+				<Input id="idContentedit"  placeholder="Enter Content" enabled="false" visible="false"></Input>
+
+
+					
+				
+			</f:content>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Rename" press="onSubmit" type="Emphasized"/>
+		</beginButton>
+		<endButton>
+			<Button text="Close" press="onClose1" type="Emphasized" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

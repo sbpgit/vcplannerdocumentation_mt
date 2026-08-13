@@ -1,0 +1,135 @@
+/* Enter your custom styles here *//* Enter your custom styles here *//* Enter your custom styles here */
+
+/*Heading background-color black*/
+.sapMBarTitleAlignAuto .sapMBarPH {
+    justify-content: flex-start;
+    background-color: #222;
+}
+
+/*RTE Height to be set inline with detail page*/
+.sapUiRTEWithCustomToolbar .sapUiRteEditorContainer .mce-container.mce-panel.mce-last {
+    border: none;
+    min-height: 50.5vh;
+    
+}
+
+/*Tree*/
+.sapMTreeItemBaseChildren {
+   
+    border-bottom-color: transparent;
+    background-color: white;
+}
+
+.sapMLIB {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    background: #fff;
+    border-bottom: none;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+}
+
+.sapMLIBHoverable:hover {
+    background-color:grey ;
+    color: white;
+}
+.red{
+    background-color:#0079a7 !important;
+    color:#fff;
+}
+
+/*23-06-2022*/
+.Heading1{
+    background-color: white;
+}
+.Heading2{
+    background-color: white;
+}
+
+/*Heading font-color white*/
+.sapMIBar-CTX .sapMTitle {
+    color: white;
+    text-shadow: none;
+    
+}
+/*RTE padding to be set 0*/
+.sapUiVlt.sapUiContentPadding {
+    padding: 0;
+    box-sizing: none;
+}
+/*RTE toolbar visibility:hidden*/
+/* .sapUiRTEWithCustomToolbar .sapMTB.sapUiRTECustomToolbar {
+    border-bottom: none;
+    visibility: hidden;
+} */
+/*RTE container border:none*/
+/* .sapUiRTEWithCustomToolbar .sapUiRteEditorContainer {
+    border-top:none;
+    border: none;
+} */
+
+/*RTE customer toolbar padding removed*/
+/* .sapUiSizeCompact .sapMTB {
+    height: 0rem;
+} */
+/*RTE toolbar margin to be set below the detail page header*/
+/* .sapUiRTEWithCustomToolbar .sapUiRteEditorContainer .mce-container.mce-panel.mce-last {
+    border: none;
+    margin-top: -15px;
+} */
+.ClassHead{
+    background-color: #222;
+    
+}
+.classHead{
+    background-color: #222;
+}
+
+/*For master Header title background to be black*/
+.sapMSplitContainerMaster .sapMPageHeader {
+    background-color: #222;
+    box-shadow: none;
+}
+
+/*Header title in both pages*/
+.sapMIBar-CTX .sapMTitle {
+    color: #fff;
+    text-shadow: none;
+    font-family: "72","72full",Arial,Helvetica,sans-serif;
+    font-size: 18px;
+    padding-left:0.5rem
+}
+/*detailPage header black background*/
+.uploadBtn{
+    padding-top: 10px;
+}
+.sapMIBar.sapMHeader-CTX {
+    background-color: #222;
+}
+
+.button{
+    background-color: white;
+}
+
+.fragmentTitle{
+    background-color: #fff;
+}
+
+.sapMBarTitleAlignAuto .sapMBarPH {
+    justify-content: flex-start;
+    background-color: #fff;
+}
+.sapUiSizeCompact .sapMBtn {
+    height: 1.53rem;
+    height: fit-content;
+    border-radius: 19.45%;
+    padding: 0rem 0;
+}
+
+.sapMSplitContainerShowHide:not(.sapMSplitContainerPortrait)>.sapMSplitContainerMaster, .sapMSplitContainerPopover:not(.sapMSplitContainerPortrait)>.sapMSplitContainerMaster {
+    border-radius: 0;
+    width: 25%;
+}
+ 

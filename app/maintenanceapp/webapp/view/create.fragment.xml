@@ -1,0 +1,59 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:semantic="sap.m.semantic"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="helloDialog" title="Create Form" afterClose="onAfterClose">
+		<f:SimpleForm id="createEmpDetails" visible="true" editable="true" layout="ResponsiveGridLayout" adjustLabelSpan="false" emptySpanL="6"
+			columnsL="1">
+			<f:content>
+				<Label text="Page Id" design="Bold"  visible="true"/>
+				<Input required="true" id="Pageid" visible="true" enabled="false" />
+			
+				<Label text="Description" required="true" design="Bold"/>
+				<Input id="Desc" value="" placeholder="Enter Description"/>
+
+                <Label text="Parent Node Description"  required="true" design="Bold"/>
+                <Input id="idCreate" value="" visible="false" enabled="false"/>
+                <Input id="idNodeID" value="" visible="false"/>
+				<!-- <ComboBox id="idMulti" items="{path: '/results',sorter: { path: 'PAGEID' }}" showSecondaryValues= "true" change="onSelectedCombo" showClearIcon="true" visible="false">
+			<core:ListItem key="{PAGEID}" text="{DESCRIPTION}" additionalText = "{PAGEID}"/>
+		</ComboBox> -->
+
+                <Label text="Hierarchy Level"  required="true" design="Bold"/>
+				<Input placeholder="Enter Heirarchy Level" id="idHL" enabled="false" />
+
+                <!-- <Label text="Drill State"  required="true" design="Bold"/>
+				<ComboBox id="idComboBox" width="auto" placeholder="Select" change="onSelect" selectedKey="leaf" class="CombBox"
+									showButton="true">
+									<core:Item key="leaf" text="leaf"/>
+									<core:Item key="expanded" text="expanded"/>
+									
+								</ComboBox> -->
+						
+				<!-- <Label text="POSITION"  required="true" design="Bold"/>
+				<Input placeholder="Enter Position" id="Pos" /> -->
+				
+				<!-- <Label text="Entry Type" class="phid" required="true" design="Bold"></Label> -->
+				<!-- <ComboBox id="idEntryType" width="auto" placeholder="Select"  selectedKey="S" class="CombBox"
+									showButton="true">
+									<core:Item key="S" text="S"/>
+									<core:Item key="V" text="V"/>
+									
+								</ComboBox> -->
+
+
+
+                <Label text="Content" class="phid" required="true" design="Bold"></Label>
+				<Input id="idContent"  placeholder="Enter Content"></Input>
+
+
+					
+				
+			</f:content>
+		</f:SimpleForm>
+		<beginButton>
+			<Button text="Create" press="onCreate" type="Emphasized"/>
+		</beginButton>
+		<endButton>
+			<Button text="Close" press="onClose" type="Emphasized" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

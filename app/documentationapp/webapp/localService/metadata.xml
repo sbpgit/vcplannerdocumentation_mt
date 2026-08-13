@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <FunctionImport Name="addPAGEHEADER" Function="CatalogService.addPAGEHEADER"/>
+                <FunctionImport Name="addPAGEPARAGRAPH" Function="CatalogService.addPAGEPARAGRAPH"/>
+                <FunctionImport Name="deletePAGEHEADER" Function="CatalogService.deletePAGEHEADER"/>
+                <FunctionImport Name="deletePAGEPARAGRAPH" Function="CatalogService.deletePAGEPARAGRAPH"/>
+                <FunctionImport Name="addJson" Function="CatalogService.addJson"/>
+                <FunctionImport Name="editJSONHeader" Function="CatalogService.editJSONHeader"/>
+                <FunctionImport Name="readJSONHeader" Function="CatalogService.readJSONHeader"/>
+                <FunctionImport Name="readJSONData" Function="CatalogService.readJSONData"/>
+            </EntityContainer>
+            <ComplexType Name="cp_header">
+                <Property Name="PAGEID" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String"/>
+                <Property Name="PARENTNODEID" Type="Edm.Int32"/>
+                <Property Name="HEIRARCHYLEVEL" Type="Edm.Int32"/>
+            </ComplexType>
+            <ComplexType Name="cp_data">
+                <Property Name="PAGEID" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String"/>
+                <Property Name="CONTENT" Type="Edm.String"/>
+            </ComplexType>
+            <Function Name="addPAGEHEADER" IsBound="false" IsComposable="false">
+                <Parameter Name="Flag1" Type="Edm.String"/>
+                <Parameter Name="PAGEID" Type="Edm.Int32"/>
+                <Parameter Name="DESCRIPTION" Type="Edm.String"/>
+                <Parameter Name="PARENTNODEID" Type="Edm.Int32"/>
+                <Parameter Name="HEIRARCHYLEVEL" Type="Edm.Int32"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="addPAGEPARAGRAPH" IsBound="false" IsComposable="false">
+                <Parameter Name="Flag1" Type="Edm.String"/>
+                <Parameter Name="PAGEID" Type="Edm.Int32"/>
+                <Parameter Name="DESCRIPTION" Type="Edm.String"/>
+                <Parameter Name="CONTENT" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="deletePAGEHEADER" IsBound="false" IsComposable="false">
+                <Parameter Name="Flag1" Type="Edm.String"/>
+                <Parameter Name="PAGEID" Type="Edm.Int32"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="deletePAGEPARAGRAPH" IsBound="false" IsComposable="false">
+                <Parameter Name="Flag1" Type="Edm.String"/>
+                <Parameter Name="PAGEID" Type="Edm.Int32"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="addJson" IsBound="false" IsComposable="false">
+                <Parameter Name="PAGEID" Type="Edm.Int32"/>
+                <Parameter Name="DESCRIPTION" Type="Edm.String"/>
+                <Parameter Name="CONTENT" Type="Edm.String"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="editJSONHeader" IsBound="false" IsComposable="false">
+                <Parameter Name="PAGEID" Type="Edm.Int32"/>
+                <Parameter Name="DESCRIPTION" Type="Edm.String"/>
+                <Parameter Name="PARENTNODEID" Type="Edm.Int32"/>
+                <Parameter Name="HEIRARCHYLEVEL" Type="Edm.Int32"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Function Name="readJSONHeader" IsBound="false" IsComposable="false">
+                <ReturnType Type="Collection(CatalogService.cp_header)" Nullable="false"/>
+            </Function>
+            <Function Name="readJSONData" IsBound="false" IsComposable="false">
+                <ReturnType Type="Collection(CatalogService.cp_data)" Nullable="false"/>
+            </Function>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,219 @@
+_schema-version: 3.3.0
+ID: vcplannerdocumentation_mt
+version: 1.0.0
+description: "VC Planner Documentation."
+parameters:
+  enable-parallel-deployments: true
+  deploy_mode: html5-repo
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+modules:
+  - name: vcplannerdocumentation_mt-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: vcplannerdocumentation_mt-auth
+      - name: vcplannerdocumentation_mt-db
+      - name: vcplannerdocumentation_mt-destination
+
+  - name: vcplannerdocumentation_mt-mtx
+    type: nodejs
+    path: gen/mtx/sidecar
+    requires:
+      - name: vcplannerdocumentation_mt-auth
+      - name: vcplannerdocumentation_mt-db
+      - name: vcplannerdocumentation_mt-registry
+      - name: vcplannerdocumentation_mt-destination
+      - name: vcplannerdocumentation_mt-html5-runtime
+      - name: vcplannerdocumentation_mt-html5-repo-host
+    build-parameters:
+      builder: npm-ci
+    parameters:
+      instances: 1
+      memory: 256M
+      disk-quota: 512M
+    hooks:
+      - name: upgrade-all
+        type: task
+        phases:
+          - blue-green.application.before-start.idle
+          - deploy.application.before-start
+        parameters:
+          name: upgrade
+          memory: 512M # increase as required
+          disk-quota: 768M # increase as required
+          command: cds-mtx upgrade '*'
+    provides:
+      - name: mtx-api
+        properties:
+          mtx-url: ${default-url}
+  - name: vcplannerdocumentation_mt-destinations 
+    type: com.sap.application.content 
+    requires: 
+      - name: vcplannerdocumentation_mt-html5-repo-host 
+        parameters: 
+          service-key: 
+            name: vcplannerdocumentation_mt-repo-host-key 
+      - name: vcplannerdocumentation_mt-html5-runtime 
+        parameters: 
+          service-key: 
+            name: vcplannerdocumentation_mt-html5-app-runtime-service-key 
+      - name: vcplannerdocumentation_mt-destination 
+        parameters: 
+          content-target: true 
+    parameters: 
+      content: 
+        subaccount: 
+          destinations: 
+            - Name: vcplannerdocumentation_mt_cdm 
+              ServiceInstanceName: vcplannerdocumentation_mt-html5-runtime 
+              ServiceKeyName: vcplannerdocumentation_mt-html5-app-runtime-service-key 
+              URL: https://html5-apps-repo-rt.cfapps.us10.hana.ondemand.com/applications/cdm/vcplannerdocumentation_mt 
+              sap.cloud.service: vcplannerdocumentation_mt 
+          existing_destinations_policy: update 
+    build-parameters: 
+      no-source: true 
+  - name: vcplannerdocumentation_mt-app-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: vcplannerdocumentation_mt-auth
+      - name: srv-api
+      - name: vcplannerdocumentation_mt-html5-repo-host
+        parameters:
+          content-target: true
+          config:
+            HTML5Runtime_enabled: true
+    build-parameters:
+      build-result: resources/
+      requires:
+      - artifacts:
+        - cpappmaintenanceapp.zip
+        name: cpappmaintenanceapp
+        target-path: resources/
+      - artifacts:
+        - cpappdocumentationapp.zip
+        name: cpappdocumentationapp
+        target-path: resources/
+      - artifacts: 
+        - cdm.json 
+        name: vcplannerdocumentation_mt-workzone-cdm 
+        target-path: resources/     
+  - name: cpappmaintenanceapp
+    type: html5
+    path: app/maintenanceapp
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+      - npm install
+      - npm run build:cf
+      ignore:
+      - node_modules/
+      supported-platforms: []
+  - name: cpappdocumentationapp
+    type: html5
+    path: app/documentationapp
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+      - npm install
+      - npm run build:cf
+      ignore:
+      - node_modules/
+      supported-platforms: []
+  - name: vcplannerdocumentation_mt-workzone-cdm 
+    type: html5 
+    path: workzone 
+    build-parameters: 
+      build-result: . 
+      supported-platforms: [] 
+
+
+resources:
+  - name: vcplannerdocumentation_mt-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: vcplannerdocumentation_mt-${org}-${space}
+        tenant-mode: shared
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
+  - name: vcplannerdocumentation_mt-db
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: service-manager
+      service-plan: container
+  - name: vcplannerdocumentation_mt-registry
+    type: org.cloudfoundry.managed-service
+    requires:
+      - name: mtx-api
+    parameters:
+      service: saas-registry
+      service-plan: application
+      config:
+        xsappname: vcplannerdocumentation_mt-${org}-${space}
+        appName: vcplannerdocumentation_mt-${org}-${space}
+        displayName: vcplannerdocumentation_mt
+        description: VC Planner Documentation.
+        category: 'VC Planner Subscriptions'
+        appUrls:
+          getDependencies: ~{mtx-api/mtx-url}/-/cds/saas-provisioning/dependencies
+          onSubscription: ~{mtx-api/mtx-url}/-/cds/saas-provisioning/tenant/{tenantId}
+          onSubscriptionAsync: true
+          onUnSubscriptionAsync: true
+          onUpdateDependenciesAsync: true
+          callbackTimeoutMillis: 300000 # Increase if your deployments are taking longer than that
+  - name: vcplannerdocumentation_mt-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config: 
+        ExposeToSubaccounts: true 
+        HTML5Runtime_enabled: true 
+        init_data: 
+          subaccount: 
+            destinations: 
+              - Authentication: NoAuthentication 
+                Name: ui5 
+                ProxyType: Internet 
+                Type: HTTP 
+                URL: https://ui5.sap.com 
+              - Authentication: NoAuthentication 
+                CEP.HTML5contentprovider: true 
+                Name: vcplannerdocumentation_mt-workzone-runtime 
+                ProxyType: Internet 
+                Type: HTTP 
+                URL: https://mttsbpdigital.launchpad.cfapps.us10.hana.ondemand.com 
+            existing_destinations_policy: update
+
+  - name: vcplannerdocumentation_mt-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: vcplannerdocumentation_mt-html5-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime

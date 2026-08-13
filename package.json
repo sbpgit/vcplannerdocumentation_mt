@@ -1,0 +1,56 @@
+{
+  "name": "vcplannerdocumentation_mt",
+  "version": "1.0.0",
+  "dependencies": {
+    "@cap-js/hana": "^2.8.0",
+    "@sap/cds": "^9.9.1",
+    "@sap/cds-dk": "^9",
+    "@sap/cds-mtxs": "^3",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/xssec": "^4.13.0",
+    "cors": "^2.8.5",
+    "express": "^4",
+    "hdb": "^0.19.0",
+    "jquery": "^3.7.0",
+    "jsdom": "^22.1.0",
+    "jsonfile": "^6.1.0"
+  },
+  "engines": {
+        "node": "^18 || ^20 || ^22"
+    },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4",
+    "@sap/ux-specification": "^1.108.12"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana",
+        "pool": {
+          "acquireTimeoutMillis": 240000,
+          "evictionRunIntervalMillis": 60000,
+          "min": 0,
+          "max": 500,
+          "numTestsPerEvictionRun": 150,
+          "softIdleTimeoutMillis": 30000,
+          "idleTimeoutMillis": 30000,
+          "testOnBorrow": true
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa",
+        "multitenancy": true
+      },
+      "[with-mtx]": {
+        "multitenancy": true
+      },
+      "destinations": true,
+      "html5-repo": true
+    },
+    "profile": "with-mtx-sidecar"
+  }
+}

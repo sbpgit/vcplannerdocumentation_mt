@@ -1,0 +1,94 @@
+<mvc:View controllerName="cpapp.maintenanceapp.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" 
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+    xmlns:ui="sap.ui.table"   
+    xmlns:l="sap.ui.layout"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:demo="control"
+    xmlns:dnd="sap.ui.core.dnd"
+    xmlns:u = "sap.ui.unified"
+    height="100%">
+    <SplitApp
+		id="SplitAppDemo"
+		initialDetail="detail"
+		initialMaster="master">
+	<masterPages>
+			<Page
+				id="master"
+				backgroundDesign= "Solid" 
+                enableScrolling="true" class="Heading1">
+                <customHeader > 
+			<Toolbar id="_IDGenToolbar1" height="2.56em" class="classHead" >
+				<Title id="masterTitle" text="Contents" class="ClassHead"></Title>
+                <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+                
+              <Button id="collapseButton" press="onCollapsePress" tooltip="Add node"
+             icon="sap-icon://add"  class="button"/>
+                <Button id ="btnedit" press="onEdit" tooltip="Rename node" icon="sap-icon://edit"  class="button"/>
+                <Button id ="btndelete" press="onDelete" tooltip="Delete node" icon="sap-icon://delete"  class="button"/>
+                <Button id ="btnDown" press="onDownLoad" tooltip="Download Files" icon="sap-icon://download"  class="button"/>
+                <u:FileUploader id="FileUploaderId" sameFilenameAllowed="true" class="uploadBtn" iconOnly="false" buttonOnly="true" visible="true"  icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="uploadData"  buttonText="HeaderUpload"/>
+                <!-- <Button id ="btnDownData" press="downloadDataFile" tooltip="Download Files" icon="sap-icon://download"  class="button"/> -->
+              
+			</Toolbar>
+		</customHeader>	
+    
+      <SearchField id="masterSearch"  liveChange="onMasterSearch"  width="100%"/>
+        <Tree
+		    id="nodes"
+		    items="{path: '/itemsPath',
+				    parameters : {
+                        arrayNames: ['children'],
+		                countMode: 'Inline',
+                        numberOfExpandedLevels:4
+		            },
+                    events: {change: '.onTreeChange'}}"
+                    mode="MultiSelect">
+                    <dragDropConfig>
+					<dnd:DragDropInfo id="_IDGenDragDropInfo1"
+							sourceAggregation="items"
+							targetAggregation="items"
+							dragStart="onDragStart"
+							drop="onDrop" dropPosition="OnOrBetween"/>
+				</dragDropConfig>
+                <items>
+			<StandardTreeItem id="_IDGenStandardTreeItem1" title="{Description}" type="Active" press="onSelectionChange" class="text"/>
+		</items>
+        </Tree>
+			</Page>
+            </masterPages>
+            <detailPages>
+            <Page
+				id="detail"
+				backgroundDesign= "Solid" class="Heading1"
+                >
+                <customHeader >
+			<Toolbar id="_IDGenToolbar2" height="2.56em" class="classHead" >
+				<Title id="detailTitle" text="{Description}" class="ClassHead"></Title>
+                <ToolbarSpacer id="_IDGenToolbarSpacer2"/>
+                <u:FileUploader id="idDataUpload" sameFilenameAllowed="true" class="uploadBtn" iconOnly="false" buttonOnly="true" visible="true"  icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="uploadData" buttonText="DataUpload"/>
+                <!-- <Button text="Navigate" id="idNav" press="onNavPress"/> -->
+			</Toolbar>
+		</customHeader>				
+                   <FormattedText  htmlText="" id="content"/>
+                    <Image id="image" class="image"/>
+                    <Text id="textContent" text=""/>
+                    <!-- <demo:AudioVideoPlayer id="videoPane" src="https://www.youtube.com/watch?v=F-gmmschhmk"/> -->
+                    <l:VerticalLayout id="videoPanel" class="sapUiContentPadding" width="100%" >
+                    </l:VerticalLayout>
+                   <HBox id="_IDGenHBox1">
+                   <Button text="" press="onShown" id="btnShow" icon="sap-icon://show" tooltip="Show html content and length "/>
+                   <ToolbarSpacer id="_IDGenToolbarSpacer3"/>
+                   <Text text="" id="textLength" />
+                   </HBox>
+                    <TextArea width="100%" height="200px" value="" id="htmlText"/>
+                    <Button  press="onSaved" id="btnSave" icon="sap-icon://save" tooltip="Save" />
+                    <core:HTML id="idHTML" content="" visible="false"/> 
+			</Page>            
+            </detailPages>            
+        </SplitApp>
+</mvc:View>
