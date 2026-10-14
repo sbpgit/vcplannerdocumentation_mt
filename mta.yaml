@@ -204,7 +204,7 @@ resources:
                 Name: vcplannerdocumentation_mt-workzone-runtime 
                 ProxyType: Internet 
                 Type: HTTP 
-                URL: https://mttsbpdigital.launchpad.cfapps.us10.hana.ondemand.com 
+                URL: https://sbp-mttdev.launchpad.cfapps.us10.hana.ondemand.com 
             existing_destinations_policy: update
 
   - name: vcplannerdocumentation_mt-html5-repo-host
